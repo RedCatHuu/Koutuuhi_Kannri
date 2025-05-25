@@ -29,7 +29,15 @@ public class User {
 	private LocalDate createDate;
 	private LocalDate updateDate;
 	private LocalDate deleteDate;
+	
+
+	// 現在時刻取得機能
+	public LocalDate getLocalDate() {
+		return LocalDate.now();
+	}
+	
 }
+
 
 /* H2DB構築
 create table Users (
@@ -47,5 +55,10 @@ INSERT INTO Users( NAME, MAIL, PASSWORD, ROLE, CREATE_DATE, UPDATE_DATE, DELETE_
 VALUES
 ('First Man', 'a@a', 'pass1', '1',  '2025-04-01', '2025-05-01', '2025-06-01'),
 ('Second Man', 'a@a', 'pass1', '1',  '2025-04-01', '2025-05-01', '2025-06-01');
+
+INSERT INTO Users( NAME, MAIL, PASSWORD, ROLE)
+VALUES
+('First Man', 'a@a', 'pass1', '1'),
+('Second Man', 'a@a', 'pass1', '1');
 
 */
