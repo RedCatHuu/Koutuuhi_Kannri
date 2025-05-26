@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8">
-		<title>Users</title>
+	<head th:replace="common/fragment :: commonHead">
 	</head>
 	
 	<body>
-		<h1>社員登録</h1>
+		<div th:replace="common/fragment :: commonHeader"></div>
 		
-<!--		urlが/newのpostを呼び出す-->
-		<form th:object="${userForm}" th:action="@{/new}" th:method="post">
-			<table>
-				<tr>
-					<td>
-						<input type="text" th:field="*{name}" placeholder="名前">
-					</td>
-					<td>
-						<input tyep="text" th:field="*{mail}" placeholder="メール">
-					</td>
-					<td>
-						<input type="text" th:field="*{password}" placeholder="パスワード">
-					</td>
-					<td>
-					</td>
-					<td>
-						<input type="submit" value="登録">
-					</td>
-				</tr>
-			</table>			
-		</form>
+		
+<!--		common/framework.htmlのframeフラグメントを呼び出し、frameフラグメント内のcontent変数にid=contentを代入-->
+		<div th:replace="common/framework :: frame('narrow', ~{::#content})">
+			<th:block id="content">
+				
+				<form th:object="${userForm}" th:action="@{/new}" th:method="post">
+					<div class="form-group fg">
+						<label for="name">名前</label>
+						<input type="text" th:field="*{name}" placeholder="名前" class="form-control mt-1">
+					</div>
+					<div class="form-group fg">
+						<label for="mail">メール</label>
+						<input type="text" th:field="*{mail}" placeholder="メール" class="form-control mt-1">
+					</div>
+					<div class="form-group fg">
+						<label for="password">パスワード</label>
+						<input type="password" th:field="*{password}" placeholder="パスワード" class="form-control mt-1">
+					</div>
+						<input type="submit" value="登録" class="btn btn-primary">
+							
+				</form>
+				
+			</th:block>			
+		</div>
 		
 	</body>
 	

@@ -2,6 +2,7 @@ package com.example.entity;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,6 +36,16 @@ public class User {
 	public LocalDate getLocalDate() {
 		return LocalDate.now();
 	}
+	
+	// 削除フラグ表示
+	public String deleteFlag() {
+		if(Objects.isNull(this.deleteDate)) {
+			return "未";
+		}else {
+			return "済";
+		}
+	}
+	
 	
 }
 

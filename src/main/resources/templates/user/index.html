@@ -1,33 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8">
+	<head>		
 		<title>Users</title>
+		<div th:replace="common/fragment :: commonHead"></div>
 	</head>
 	
 	<body>
-		<h1>社員一覧</h1>
+		<div th:replace="common/fragment :: commonHeader"></div>
+		
+		
 		
 <!--		社員一覧表示-->
-		<table>
-			<tr>				
-				<th>名前</th>
-				<th>メールアドレス</th>
-				<th>削除</th>
-			</tr>
-			<tr th:each="user : ${users}">
-				<td th:text="${user.name}"></td>				
-				<td th:text="${user.mail}"></td>
-<!--				<td th:text="${user.}"></td>-->
-<!--				<td>-->
-<!--					<a th:href="@{/edit/{id}(id=*{user.id})}">編集</a>-->
-<!--				</td>-->
-			</tr>
-		</table>
-		
-<!--		社員登録画面へ遷移-->
-		<a th:href="@{/new}">社員登録</a>
-		
+		<div th:replace="common/framework :: frame('standard', ~{::#content})">
+			<th:block id="content">
+				<table class="table">
+					<thead>
+						<tr>				
+							<th>名前</th>
+							<th>メールアドレス</th>
+							<th>削除</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="user : ${users}">
+							<td th:text="${user.name}"></td>				
+							<td th:text="${user.mail}"></td>
+							<td th:text="${user.deleteFlag}"></td>
+							<td>編集</td>
+			<!--			<td th:text="${user.}"></td>-->
+			<!--				<td>-->
+			<!--					<a th:href="@{/edit/{id}(id=*{user.id})}">編集</a>-->
+			<!--				</td>-->
+						</tr>
+					</tbody>
+				</table>
+				
+		<!--		社員登録画面へ遷移-->
+				<a th:href="@{/new}" class="btn btn-primary">社員登録</a>
+			</th:block>
+		</div>
 	</body>
 	
 </html>

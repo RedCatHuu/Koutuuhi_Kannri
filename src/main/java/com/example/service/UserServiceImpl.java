@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService{
 	
 	// 全社員取得
 	public List<User> getAllEmp(){
-		List<User> users = repo.getAllEmp();
+		List<User> users = repo.findAll();
 		return users;
 	}
 	
