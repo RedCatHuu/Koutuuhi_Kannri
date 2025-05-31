@@ -33,7 +33,7 @@ public class User {
 	
 
 	// 現在時刻取得機能
-	public LocalDate getLocalDate() {
+	public LocalDate nowDate() {
 		return LocalDate.now();
 	}
 	

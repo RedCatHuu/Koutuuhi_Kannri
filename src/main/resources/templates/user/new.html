@@ -6,6 +6,7 @@
 	<body>
 		<div th:replace="common/fragment :: commonHeader"></div>
 		
+<!--		role追加 バリデーション(メール形式・ブランク不可・パスワード文字数上限下限)-->
 		
 <!--		common/framework.htmlのframeフラグメントを呼び出し、frameフラグメント内のcontent変数にid=contentを代入-->
 		<div th:replace="common/framework :: frame('narrow', ~{::#content})">
@@ -14,15 +15,21 @@
 				<form th:object="${userForm}" th:action="@{/new}" th:method="post">
 					<div class="form-group fg">
 						<label for="name">名前</label>
-						<input type="text" th:field="*{name}" placeholder="名前" class="form-control mt-1">
+						<input type="text" th:field="*{name}" placeholder="名前" th:errorclass="border-danger" class="form-control mt-1">
+						<!-- エラー表示 -->
+						<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></div>
 					</div>
 					<div class="form-group fg">
 						<label for="mail">メール</label>
-						<input type="text" th:field="*{mail}" placeholder="メール" class="form-control mt-1">
+						<input type="text" th:field="*{mail}" placeholder="メール" th:errorclass="border-danger" class="form-control mt-1">
+						<!-- エラー表示 -->
+						<div th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" class="text-danger"></div>
 					</div>
 					<div class="form-group fg">
 						<label for="password">パスワード</label>
-						<input type="password" th:field="*{password}" placeholder="パスワード" class="form-control mt-1">
+						<input type="password" th:field="*{password}" placeholder="パスワード" th:errorclass="border-danger" class="form-control mt-1">
+						<!-- エラー表示 -->
+						<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></div>
 					</div>
 						<input type="submit" value="登録" class="btn btn-primary">
 							

@@ -26,12 +26,10 @@
 						<tr th:each="user : ${users}">
 							<td th:text="${user.name}"></td>				
 							<td th:text="${user.mail}"></td>
-							<td th:text="${user.deleteFlag}"></td>
-							<td>編集</td>
-			<!--			<td th:text="${user.}"></td>-->
-			<!--				<td>-->
-			<!--					<a th:href="@{/edit/{id}(id=*{user.id})}">編集</a>-->
-			<!--				</td>-->
+							<td th:text="${user.deleteFlag()}"></td>
+							<td>
+								<a th:href="@{/edit/{id}(id=*{user.id})}" class="btn btn-primary">編集</a>
+							</td>
 						</tr>
 					</tbody>
 				</table>

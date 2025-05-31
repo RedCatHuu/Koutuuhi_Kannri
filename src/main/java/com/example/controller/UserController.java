@@ -1,16 +1,22 @@
 package com.example.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.entity.User;
 import com.example.form.UserForm;
 import com.example.service.UserService;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class UserController {
@@ -45,20 +51,48 @@ public class UserController {
 		// 社員登録処理画面
 		@PostMapping("/new")
 		// viewで入力された新規userの情報がuserFormに渡される
-		public String registerUser(UserForm userForm, Model model) {
+		public String registerUser(
+				Model model,
+				@Valid @ModelAttribute("userForm") UserForm userForm,
+				BindingResult bindingResult) {
+			
+			if(bindingResult.hasErrors()) {
+				return "user/new";
+			}
 			
 			User user = new User();
 			user.setName(userForm.getName());
 			user.setMail(userForm.getMail());
 			user.setPassword(userForm.getPassword());			
-			user.setCreateDate(user.getLocalDate());
+			user.setCreateDate(LocalDate.now());
 			userService.save(user);
 			
 			List<User> users = userService.getAllEmp();
 			model.addAttribute("users", users);
 					
-			return "user/index";		
+			return "user/index";			
+		}
+		
+		// 社員更新画面
+		@GetMapping("/edit/{id}")
+		public String edit(@PathVariable Long id, Model model) {
 			
+			User user = userService.findById(id);
+			model.addAttribute("user", user);
+			
+			return "/user/edit";
+		}
+		
+		// 社員更新処理
+		@PostMapping("/update")
+		public String update(User updatedUser, Model model) {
+			
+			User targetUser = userService.findById(updatedUser.getId());
+			targetUser.setName(updatedUser.getName());
+			targetUser.setMail(updatedUser.getMail());
+			userService.save(targetUser);
+			
+			return "redirect:/";
 		}
 
 }

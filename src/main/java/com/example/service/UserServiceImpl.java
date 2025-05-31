@@ -25,5 +25,12 @@ public class UserServiceImpl implements UserService{
 	public void save(User user) {
 		repo.save(user);
 	}
+	
+	// ユーザーの検索
+	public User findById(Long id) {
+		User user = repo.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid user id: " + id));;;
+		return user;
+	}
 
 }
