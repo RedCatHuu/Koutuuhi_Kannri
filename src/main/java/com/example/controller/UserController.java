@@ -77,20 +77,33 @@ public class UserController {
 		@GetMapping("/edit/{id}")
 		public String edit(@PathVariable Long id, Model model) {
 			
-			User user = userService.findById(id);
-			model.addAttribute("user", user);
 			
-			return "/user/edit";
+			User user = userService.findById(id);
+			UserForm form = new UserForm();
+			form.setId(user.getId());
+			form.setName(user.getName());
+			form.setMail(user.getMail());
+			form.setPassword("dummy");
+			model.addAttribute("form", form);
+			
+			return "user/edit";
 		}
 		
 		// 社員更新処理
 		@PostMapping("/update")
-		public String update(User updatedUser, Model model) {
+		public String update( 
+				Model model,
+				@Valid @ModelAttribute("form") UserForm form,
+				BindingResult bindingResult) {
 			
-			User targetUser = userService.findById(updatedUser.getId());
-			targetUser.setName(updatedUser.getName());
-			targetUser.setMail(updatedUser.getMail());
-			userService.save(targetUser);
+			if(bindingResult.hasErrors()) {
+				return "user/edit";
+			}
+			
+			User user = userService.findById(form.getId());
+			user.setName(form.getName());
+			user.setMail(form.getMail());
+			userService.save(user);
 			
 			return "redirect:/";
 		}

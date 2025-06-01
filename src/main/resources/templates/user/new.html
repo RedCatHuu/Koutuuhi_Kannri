@@ -15,7 +15,7 @@
 				<form th:object="${userForm}" th:action="@{/new}" th:method="post">
 					<div class="form-group fg">
 						<label for="name">名前</label>
-						<input type="text" th:field="*{name}" placeholder="名前" th:errorclass="border-danger" class="form-control mt-1">
+						<input type="text" th:field="*{name}" placeholder="名前" th:errorclass="border-danger" class="form-control mt-1" autofocus>
 						<!-- エラー表示 -->
 						<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></div>
 					</div>

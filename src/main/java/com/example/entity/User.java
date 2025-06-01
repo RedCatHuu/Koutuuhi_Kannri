@@ -30,13 +30,7 @@ public class User {
 	private LocalDate createDate;
 	private LocalDate updateDate;
 	private LocalDate deleteDate;
-	
-
-	// 現在時刻取得機能
-	public LocalDate nowDate() {
-		return LocalDate.now();
-	}
-	
+		
 	// 削除フラグ表示
 	public String deleteFlag() {
 		if(Objects.isNull(this.deleteDate)) {

@@ -9,15 +9,20 @@
 		<div th:replace="common/framework :: frame('narrow', ~{::#content})">
 			<th:block id="content">
 				
-				<form th:object="${user}" th:action="@{/update}" th:method="post">
+				<form th:object="${form}" th:action="@{/update}" th:method="post">
 					<input type="hidden" th:field="*{id}"/>
+					<input type="hidden" th:field="*{password}"/>
 					<div class="form-group fg">
 						<label for="name">名前</label>
-						<input type="text" th:field="*{name}" placeholder="名前" class="form-control mt-1">
+						<input type="text" th:field="*{name}" placeholder="名前" class="form-control mt-1" autofocus>
+						<!-- エラー表示 -->
+						<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></div>
 					</div>
 					<div class="form-group fg">
 						<label for="mail">メール</label>
 						<input type="text" th:field="*{mail}" placeholder="メール" class="form-control mt-1">
+						<!-- エラー表示 -->
+						<div th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" class="text-danger"></div>
 					</div>
 					<div>
 						<input type="submit" value="更新" class="btn btn-primary">
