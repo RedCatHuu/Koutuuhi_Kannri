@@ -12,25 +12,37 @@
 		<div th:replace="common/framework :: frame('narrow', ~{::#content})">
 			<th:block id="content">
 				
-				<form th:object="${userForm}" th:action="@{/new}" th:method="post">
-					<div class="form-group fg">
+				<form th:object="${form}" th:action="@{/new}" th:method="post">
+					
+					<div class="form-group mb-3">
 						<label for="name">名前</label>
 						<input type="text" th:field="*{name}" placeholder="名前" th:errorclass="border-danger" class="form-control mt-1" autofocus>
 						<!-- エラー表示 -->
 						<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></div>
 					</div>
-					<div class="form-group fg">
+					
+					<div class="form-group mb-3">
 						<label for="mail">メール</label>
 						<input type="text" th:field="*{mail}" placeholder="メール" th:errorclass="border-danger" class="form-control mt-1">
 						<!-- エラー表示 -->
 						<div th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" class="text-danger"></div>
 					</div>
-					<div class="form-group fg">
+					
+					<div class="form-group mb-3">
 						<label for="password">パスワード</label>
 						<input type="password" th:field="*{password}" placeholder="パスワード" th:errorclass="border-danger" class="form-control mt-1">
 						<!-- エラー表示 -->
 						<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></div>
 					</div>
+					
+					<div class="mb-3">
+						<label for="role">権限</label>
+						<select th:field="*{role}" class="form-select">
+							<option th:value="'1'" th:text="'一般'"></option>
+							<option th:value="'2'" th:text="'管理者'"></option>
+						</select>						
+					</div>
+					
 						<input type="submit" value="登録" class="btn btn-primary">
 							
 				</form>

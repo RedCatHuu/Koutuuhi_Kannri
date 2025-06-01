@@ -42,7 +42,7 @@ public class UserController {
 		public String post(Model model) {
 			
 			UserForm userForm = new UserForm();
-			model.addAttribute("userForm", userForm);
+			model.addAttribute("form", userForm);
 			
 			return "user/new";
 		}
@@ -53,7 +53,7 @@ public class UserController {
 		// viewで入力された新規userの情報がuserFormに渡される
 		public String registerUser(
 				Model model,
-				@Valid @ModelAttribute("userForm") UserForm userForm,
+				@Valid @ModelAttribute("form") UserForm form,
 				BindingResult bindingResult) {
 			
 			if(bindingResult.hasErrors()) {
@@ -61,14 +61,17 @@ public class UserController {
 			}
 			
 			User user = new User();
-			user.setName(userForm.getName());
-			user.setMail(userForm.getMail());
-			user.setPassword(userForm.getPassword());			
+			user.setName(form.getName());
+			user.setMail(form.getMail());
+			user.setPassword(form.getPassword());			
 			user.setCreateDate(LocalDate.now());
+			user.setRole(form.getRole());
 			userService.save(user);
 			
 			List<User> users = userService.getAllEmp();
 			model.addAttribute("users", users);
+			
+			System.out.print(user);
 					
 			return "user/index";			
 		}
@@ -84,6 +87,7 @@ public class UserController {
 			form.setName(user.getName());
 			form.setMail(user.getMail());
 			form.setPassword("dummy");
+			form.setRole(user.getRole());
 			model.addAttribute("form", form);
 			
 			return "user/edit";
@@ -103,7 +107,10 @@ public class UserController {
 			User user = userService.findById(form.getId());
 			user.setName(form.getName());
 			user.setMail(form.getMail());
+			user.setRole(form.getRole());
 			userService.save(user);
+			
+			System.out.print(user);
 			
 			return "redirect:/";
 		}
