@@ -3,6 +3,7 @@
 	<head th:replace="common/fragment :: commonHead">
 	</head>
 	
+<!--	updatedateを追加-->
 	<body>
 		<div th:replace="common/fragment :: commonHeader"></div>
 		
@@ -34,11 +35,15 @@
 							<option th:value="'1'" th:text="'一般'"></option>
 							<option th:value="'2'" th:text="'管理者'"></option>
 						</select>						
-					</div>
+					</div>					
 					
 					<div>
-						<input type="submit" value="更新" class="btn btn-primary">
-						
+						<!-- 社員更新-->
+						<input type="submit" name="update" value="更新" class="btn btn-primary me-3">										
+						<!-- 社員削除-->
+						<input th:if="*{deleteDate} == null" type="submit" name="delete" value="削除" class="btn btn-danger" onclick="return confirm('本当に削除しますか？');">
+						<!-- 社員削除撤回-->
+						<input th:if="*{deleteDate} != null" type="submit" name="undelete" value="有効化" class="btn btn-success">
 					</div>
 				</form>
 				

@@ -88,14 +88,17 @@ public class UserController {
 			form.setMail(user.getMail());
 			form.setPassword("dummy");
 			form.setRole(user.getRole());
+			form.setDeleteDate(user.getDeleteDate());
 			model.addAttribute("form", form);
+			
+			System.out.print(form);
 			
 			return "user/edit";
 		}
 		
 		// 社員更新処理
-		@PostMapping("/update")
-		public String update( 
+		@PostMapping(value="/update", params="update")
+		public String updateUser( 
 				Model model,
 				@Valid @ModelAttribute("form") UserForm form,
 				BindingResult bindingResult) {
@@ -107,11 +110,34 @@ public class UserController {
 			User user = userService.findById(form.getId());
 			user.setName(form.getName());
 			user.setMail(form.getMail());
-			user.setRole(form.getRole());
+			user.setRole(form.getRole());			
+			user.setUpdateDate(LocalDate.now());
 			userService.save(user);
 			
 			System.out.print(user);
 			
+			return "redirect:/";
+		}
+		
+		// 社員削除処理
+		// 更新も削除もpath名が同じなのが気になる
+		@PostMapping(value="/update", params="delete")
+		// public String deleteUser(@PathVariable Long id) {
+		public String deleteUser(UserForm form) {
+			User user = userService.findById(form.getId());			
+			user.setDeleteDate(LocalDate.now());			
+			userService.save(user);
+			System.out.print(user);
+			return "redirect:/";
+		}
+		
+		// 社員削除撤回処理
+		@PostMapping(value="/update", params="undelete")
+		public String undeleteUser(UserForm form) {
+			User user = userService.findById(form.getId());
+			user.setDeleteDate(null);
+			userService.save(user);
+			System.out.print(user);
 			return "redirect:/";
 		}
 

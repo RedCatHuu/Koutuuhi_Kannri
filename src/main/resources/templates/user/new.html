@@ -6,8 +6,6 @@
 	<body>
 		<div th:replace="common/fragment :: commonHeader"></div>
 		
-<!--		role追加 バリデーション(メール形式・ブランク不可・パスワード文字数上限下限)-->
-		
 <!--		common/framework.htmlのframeフラグメントを呼び出し、frameフラグメント内のcontent変数にid=contentを代入-->
 		<div th:replace="common/framework :: frame('narrow', ~{::#content})">
 			<th:block id="content">
