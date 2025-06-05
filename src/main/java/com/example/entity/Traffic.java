@@ -19,32 +19,11 @@ public class Traffic {
 	private User user;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // 自動裁判
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // 自動採番
 	private Long id;
-	private LocalDate useday;
+	private LocalDate dateofuse;
 	private String means;
 	private String sector;
 	private String road;
 	private int cost;
 }
-
-/* H2DB構築
-create table Traffic (
-	trafficid identity primary key,
-	useday date NOT NULL,
-	means varchar(255) NOT NULL,
-	sector varchar(255) NOT NULL,
-	road char(1) NOT NULL,
-	cost int NOT NULL
-)
-
-INSERT INTO Traffic(USER_ID, USEDAY, MEANS, SECTOR, ROAD, COST)
-	VALUES
-	('1', '20250401', '通勤', '渋谷から新宿', '1', '300'),
-	('1', '20250401', '通勤', '渋谷から新宿', '1', '300'),
-	('1', '20250401', '通勤', '渋谷から新宿', '1', '300'),
-	('1', '20250401', '通勤', '渋谷から新宿', '1', '300'),
-	('2', '20250401', '通勤', '渋谷から新宿', '1', '300'),
-	('2', '20250401', '通勤', '渋谷から新宿', '1', '300');
-
-*/
