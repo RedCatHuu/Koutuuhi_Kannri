@@ -1,6 +1,6 @@
 package com.example.form;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -22,9 +22,9 @@ public class UserForm {
 	@Size(min=4, max = 20, message="パスワードは4～20桁を入力してください")
 	private String password;
 	private String role;
-	private LocalDate createDate;
-	private LocalDate updateDate;
-	private LocalDate deleteDate;
+	private LocalDateTime createDate;
+	private LocalDateTime updateDate;
+	private LocalDateTime deleteDate;
 	
 }
 

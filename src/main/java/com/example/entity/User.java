@@ -42,6 +42,10 @@ public class User {
 		}
 	}
 	
+	// 現在時刻取得
+	public LocalDateTime getNow() {
+		return LocalDateTime.now();
+	}
 	
 }
 

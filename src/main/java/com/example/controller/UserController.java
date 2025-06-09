@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +63,7 @@ public class UserController {
 			user.setName(form.getName());
 			user.setMail(form.getMail());
 			user.setPassword(form.getPassword());			
-			user.setCreateDate(LocalDate.now());
+			user.setCreateDate(user.getNow());
 			user.setRole(form.getRole());
 			userService.save(user);
 			
@@ -111,7 +110,7 @@ public class UserController {
 			user.setName(form.getName());
 			user.setMail(form.getMail());
 			user.setRole(form.getRole());			
-			user.setUpdateDate(LocalDate.now());
+			user.setUpdateDate(user.getNow());
 			userService.save(user);
 			
 			System.out.print(user);
@@ -125,7 +124,7 @@ public class UserController {
 		// public String deleteUser(@PathVariable Long id) {
 		public String deleteUser(UserForm form) {
 			User user = userService.findById(form.getId());			
-			user.setDeleteDate(LocalDate.now());			
+			user.setDeleteDate(user.getNow());			
 			userService.save(user);
 			System.out.print(user);
 			return "redirect:/";
