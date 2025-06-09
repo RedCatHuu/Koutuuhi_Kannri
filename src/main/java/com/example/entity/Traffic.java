@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -16,11 +17,12 @@ public class Traffic {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
+	@ToString.Exclude
 	private User user;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // 自動採番
-	private Long id;
+	private Long trafficid;
 	private LocalDate dateofuse;
 	private String means;
 	private String sector;

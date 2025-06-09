@@ -1,6 +1,6 @@
 package com.example.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,14 +9,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Data
-// @Table(name = "Users") // User entity と Usersテーブルをつなげる
+@Table(name = "Users") // User entity と Usersテーブルをつなげる
 public class User {
 	
 	@OneToMany(mappedBy = "user")
+	@ToString.Exclude // stackoverflow回避用
 	private List<Traffic> traffic;
 	
 	@Id
@@ -26,9 +29,9 @@ public class User {
 	private String mail;
 	private String password;
 	private String role;
-	private LocalDate createDate;
-	private LocalDate updateDate;
-	private LocalDate deleteDate;
+	private LocalDateTime createDate;
+	private LocalDateTime updateDate;
+	private LocalDateTime deleteDate;
 		
 	// 削除フラグ表示
 	public String deleteFlag() {

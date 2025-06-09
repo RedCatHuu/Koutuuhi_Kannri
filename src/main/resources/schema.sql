@@ -7,9 +7,9 @@ create table IF NOT EXISTS Users (
 	mail varchar(80) NOT NULL,
 	password varchar(60) NOT NULL,
 	role char(1) NOT NULL,
-	createdate timestamp,
-	updatedate timestamp,
-	deletedate timestamp
+	create_date timestamp,
+	update_date timestamp,
+	delete_date timestamp
 );
 
 
