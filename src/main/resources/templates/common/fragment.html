@@ -16,11 +16,15 @@
 		<header class="bg-dark text-white p-3 mb-2">
 			<div class="row justify-content-between">
 				<div class="col-auto">
-					<a th:href="@{/}" class="text-decoration-none text-white">交通費申請書</a>
+					<a th:href="@{/index}" class="text-decoration-none text-white">交通費申請書</a>
 				</div>
 				<div class="col-auto">
 					<a th:href="@{/new}" class="text-decoration-none text-white">社員登録</a>
-					<span class="">ログアウト</span>
+					<span class="bg-white text-white">
+						<form th:action="@{/logout}" method="post">
+						    <button type="submit" class="bg-dark text-white">ログアウト</button>
+						</form>
+					</span>
 				</div>
 			</div>
 		</header>

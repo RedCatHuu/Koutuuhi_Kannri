@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="common/fragment :: commonHead"></head>
+	
+	<body>
+		<div th:replace="common/fragment :: commonHeader"></div>
+		
+		<div th:replace="common/framework :: frame('narrow', ~{::#content})">
+			<th:block id="content">
+				
+				
+		    	<p class="col d-flex justify-content-center">ログイン</p>
+<!--		    	ログイン失敗時-->
+			    <div th:if="${param.error}" class="alert alert-danger">ログイン失敗</div>
+			    
+			    <form th:action="@{/login}" method="post">
+			        <div class="form-group">
+			            <label for="username">ユーザー</label>
+			            <input type="text" name="username" class="form-control" autofocus/>
+			        </div>
+			        <div class="form-group mt-2">
+			            <label for="password">パスワード:</label>
+			            <input type="password" name="password" class="form-control" />
+			        </div>
+			        <button type="submit" class="btn btn-primary mt-3">ログイン</button>
+			    </form>
+			</th:block>
+		</div>
+	</body>
+</html>

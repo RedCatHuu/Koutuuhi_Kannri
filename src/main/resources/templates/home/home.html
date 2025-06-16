@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="common/fragment :: commonHead"></head>
+	
+	<body>
+		<div th:replace="common/fragment :: commonHeader"></div>
+		
+		<div th:replace="common/framework :: frame('narrow', ~{::#content})">
+			<th:block id="content">
+				
+			    <p>ホーム画面</p>
+			    
+			</th:block>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>商品管理</title>
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+</head>
+	</body>
+	<h1>実行する権限がありません</h1>
+		<ul>
+		<!--	DefaultErrorAttributesクラスの属性
+		以下リファレンス
+		https://spring.pleiades.io/spring-boot/docs/2.0.0.M7/api/org/springframework/boot/autoconfigure/web/reactive/error/DefaultErrorAttributes.html
+		-->
+		  	<li>status : [[${status}]] <!-- 状態コード -->
+			<li>error : [[${error}]] <!-- エラーの理由 -->
+		</ul>
+		<a th:href="@{/}">トップページへ</>
+	</body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<head>		
 		<title>Users</title>
 		<div th:replace="common/fragment :: commonHead"></div>
@@ -35,6 +35,10 @@
 				</table>
 				
 		<!--		社員登録画面へ遷移-->
+				<div sec:authorize="hasRole('ADMIN')">ああ</div>
+				<p>ユーザー名: <span sec:authentication="name"></span></p>
+<p>ロール: <span sec:authentication="principal.authorities"></span></p>
+
 				<a th:href="@{/new}" class="btn btn-primary">社員登録</a>
 			</th:block>
 		</div>

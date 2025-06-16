@@ -3,6 +3,7 @@ package com.example.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import com.example.service.UserService;
 import jakarta.validation.Valid;
 
 @Controller
+@PreAuthorize("hasRole('ADMIN')") // adminロールを持つユーザーのみアクセス可
 public class UserController {
 	
 	@Autowired
@@ -27,7 +29,7 @@ public class UserController {
 //	private UserRepository repo;
 	
 	// 社員一覧画面
-		@GetMapping("/")
+		@GetMapping("/index")
 		public String index(Model model) {
 			List<User> users = userService.getAllEmp();
 			// List<User> users = repo.findAll();
@@ -115,7 +117,7 @@ public class UserController {
 			
 			System.out.print(user);
 			
-			return "redirect:/";
+			return "redirect:/index";
 		}
 		
 		// 社員削除処理
@@ -127,7 +129,7 @@ public class UserController {
 			user.setDeleteDate(user.getNow());			
 			userService.save(user);
 			System.out.print(user);
-			return "redirect:/";
+			return "redirect:/index";
 		}
 		
 		// 社員削除撤回処理
@@ -137,7 +139,7 @@ public class UserController {
 			user.setDeleteDate(null);
 			userService.save(user);
 			System.out.print(user);
-			return "redirect:/";
+			return "redirect:/index";
 		}
 
 }
