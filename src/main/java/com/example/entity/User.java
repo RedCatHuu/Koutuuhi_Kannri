@@ -47,6 +47,15 @@ public class User {
 		return LocalDateTime.now();
 	}
 	
+	// ロール名表示
+	public String getRoleName() {
+		if(this.role.equals("1")) {
+			return "ADMIN";
+		}else {
+			return "PUBLIC";
+		}
+	}
+	
 }
 
 

@@ -2,10 +2,14 @@ package com.example.details;
 
 import java.util.Collection;
 
-import org.apache.catalina.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.example.entity.User;
+
+// リファレンス
+// https://spring.pleiades.io/spring-security/site/docs/current/api/org/springframework/security/core/userdetails/UserDetails.html
 
 public class UserDetailsImpl implements UserDetails {
 	private User user;
@@ -16,7 +20,7 @@ public class UserDetailsImpl implements UserDetails {
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities(){
-		return AuthorityUtils.createAuthorityList("ROLE_" + user.getRoles());
+		return AuthorityUtils.createAuthorityList("ROLE_" + user.getRoleName());
 	}
 	
 	@Override
@@ -29,7 +33,8 @@ public class UserDetailsImpl implements UserDetails {
 		return user.getName();
 	}
 	
-	public boolean isAccontNonExpired() {
+	@Override
+	public boolean isAccountNonExpired() {
 		return true;
 	}
 	

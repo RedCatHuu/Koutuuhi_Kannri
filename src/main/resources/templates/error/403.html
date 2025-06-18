@@ -15,6 +15,9 @@
 		  	<li>status : [[${status}]] <!-- 状態コード -->
 			<li>error : [[${error}]] <!-- エラーの理由 -->
 		</ul>
+		
+		<p>ユーザー名: <span sec:authentication="name"></span></p>
+		<p>ロール: <span sec:authentication="principal.authorities"></span></p>
 		<a th:href="@{/}">トップページへ</>
 	</body>
 </html>

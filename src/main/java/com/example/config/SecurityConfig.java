@@ -4,11 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration // このクラスがspringに対する設定を行うものであることを示す
@@ -19,22 +16,7 @@ public class SecurityConfig {
 	  PasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();
 	  }
-	  
-	  @Bean
-	  InMemoryUserDetailsManager userDetailsService() {
-	    UserDetails admin = User
-	        .withUsername("admin")
-	        .password(passwordEncoder().encode("admin123"))
-	        .roles("ADMIN")
-	        .build();
-	    UserDetails student = User
-	        .withUsername("public")
-	        .password(passwordEncoder().encode("pub123"))
-	        .roles("USER")
-	        .build();
-	    return new InMemoryUserDetailsManager(admin, student);
-	  }
-	
+	  	
 	@Bean
 	SecurityFilterChain securityFileterChain(HttpSecurity http) throws Exception{
 		http.formLogin(login -> login // フォーム認証を使う
@@ -45,7 +27,7 @@ public class SecurityConfig {
 			.logout(logout -> logout
 	            .logoutUrl("/logout") // ログアウトURL
 	            .logoutSuccessUrl("/") // ログアウト後の遷移先
-	            .invalidateHttpSession(true) // セッション破棄
+	            .invalidateHttpSession(true) // セッション破棄 デフォルトでtrueなので明示しなくてもいい
 	            .deleteCookies("JSESSIONID") // Cookie削除
             )
 			.authorizeHttpRequests(authz -> authz

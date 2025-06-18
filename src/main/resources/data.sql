@@ -1,7 +1,7 @@
 INSERT INTO Users( NAME, MAIL, PASSWORD, ROLE, CREATE_DATE)
 VALUES
-('admin', 'a@a', 'pass1', '1', '20250601'),
-('public', 'b@b', 'pass1', '2', '20250601');
+('admin', 'a@a', '$2a$10$FE8mryX8hGGRq3OMjQLdU.TmQbwnizW5bVtFUXaca6A1hJ/hShiPm', '1', '20250601'),
+('public', 'p@p', '$2a$10$CZEtRdHVdQWs6e1EWrJmZuBi9rqSNO6TlDTyNrb2Wg.q5sDSRSzmW', '2', '20250601');
 
 INSERT INTO Traffic(USER_ID, DATEOFUSE, MEANS, SECTOR, ROAD, COST)
 	VALUES
