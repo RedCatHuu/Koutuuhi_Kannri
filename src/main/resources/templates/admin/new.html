@@ -3,30 +3,34 @@
 	<head th:replace="common/fragment :: commonHead">
 	</head>
 	
-<!--	updatedateを追加-->
 	<body>
 		<div th:replace="common/fragment :: commonHeader"></div>
 		
+<!--		common/framework.htmlのframeフラグメントを呼び出し、frameフラグメント内のcontent変数にid=contentを代入-->
 		<div th:replace="common/framework :: frame('narrow', ~{::#content})">
 			<th:block id="content">
 				
-				<form th:object="${form}" th:action="@{/update}" th:method="post">
-					
-					<input type="hidden" th:field="*{id}"/>
-					<input type="hidden" th:field="*{password}"/>
+				<form th:object="${form}" th:action="@{/admin/new}" th:method="post">
 					
 					<div class="form-group mb-3">
 						<label for="name">名前</label>
-						<input type="text" th:field="*{name}" placeholder="名前" class="form-control mt-1" autofocus>
+						<input type="text" th:field="*{name}" placeholder="名前" th:errorclass="border-danger" class="form-control mt-1" autofocus>
 						<!-- エラー表示 -->
 						<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></div>
 					</div>
 					
 					<div class="form-group mb-3">
 						<label for="mail">メール</label>
-						<input type="text" th:field="*{mail}" placeholder="メール" class="form-control mt-1">
+						<input type="text" th:field="*{mail}" placeholder="メール" th:errorclass="border-danger" class="form-control mt-1">
 						<!-- エラー表示 -->
 						<div th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" class="text-danger"></div>
+					</div>
+					
+					<div class="form-group mb-3">
+						<label for="password">パスワード</label>
+						<input type="password" th:field="*{password}" placeholder="パスワード" th:errorclass="border-danger" class="form-control mt-1">
+						<!-- エラー表示 -->
+						<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></div>
 					</div>
 					
 					<div class="mb-3">
@@ -35,16 +39,10 @@
 							<option th:value="'1'" th:text="'一般'"></option>
 							<option th:value="'2'" th:text="'管理者'"></option>
 						</select>						
-					</div>					
-					
-					<div>
-						<!-- 社員更新-->
-						<input type="submit" name="update" value="更新" class="btn btn-primary me-3">										
-						<!-- 社員削除-->
-						<input th:if="*{deleteDate} == null" type="submit" name="delete" value="削除" class="btn btn-danger" onclick="return confirm('本当に削除しますか？');">
-						<!-- 社員削除撤回-->
-						<input th:if="*{deleteDate} != null" type="submit" name="undelete" value="有効化" class="btn btn-success">
 					</div>
+					
+						<input type="submit" value="登録" class="btn btn-primary">
+							
 				</form>
 				
 			</th:block>			

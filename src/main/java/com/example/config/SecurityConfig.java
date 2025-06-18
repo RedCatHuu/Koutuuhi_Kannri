@@ -21,7 +21,7 @@ public class SecurityConfig {
 	SecurityFilterChain securityFileterChain(HttpSecurity http) throws Exception{
 		http.formLogin(login -> login // フォーム認証を使う
 				.loginPage("/login") // ログインページのURL
-				.defaultSuccessUrl("/index", true) // ログイン後の遷移先
+				.defaultSuccessUrl("/admin/index", true) // ログイン後の遷移先
 				.permitAll()
 			) // フォーム認証画面は認証不要
 			.logout(logout -> logout

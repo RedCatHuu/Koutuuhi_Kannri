@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.entity.User;
 import com.example.form.UserForm;
@@ -19,14 +20,19 @@ import com.example.service.UserService;
 import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping("/admin") // URLにadminを追加する。　admin/index のように
 @PreAuthorize("hasRole('ADMIN')") // adminロールを持つユーザーのみアクセス可
 public class UserController {
 	
 	@Autowired
 	private UserService userService;
 	
-//	@Autowired
-//	private UserRepository repo;
+	/* テンプレート名に"admin/"を付加して、ビューのパスを簡潔に指定する
+	 * @return "admin/"を付加したテンプレートパス　(例："admin/index")
+	 */
+	private String view(String name) {
+		return "admin/" + name;
+	}
 	
 	// 社員一覧画面
 		@GetMapping("/index")
@@ -35,7 +41,7 @@ public class UserController {
 			// List<User> users = repo.findAll();
 			model.addAttribute("users", users);
 			System.out.println(users);
-			return "user/index";
+			return view("index");
 		}
 	
 	// 社員登録画面
@@ -45,7 +51,7 @@ public class UserController {
 			UserForm userForm = new UserForm();
 			model.addAttribute("form", userForm);
 			
-			return "user/new";
+			return view("new");
 		}
 		
 
@@ -58,7 +64,7 @@ public class UserController {
 				BindingResult bindingResult) {
 			
 			if(bindingResult.hasErrors()) {
-				return "user/new";
+				return view("new");
 			}
 			
 			User user = new User();
@@ -74,7 +80,7 @@ public class UserController {
 			
 			System.out.print(user);
 					
-			return "user/index";			
+			return view("index");			
 		}
 		
 		// 社員更新画面
@@ -94,7 +100,7 @@ public class UserController {
 			
 			System.out.print(form);
 			
-			return "user/edit";
+			return view("edit");
 		}
 		
 		// 社員更新処理
@@ -105,7 +111,7 @@ public class UserController {
 				BindingResult bindingResult) {
 			
 			if(bindingResult.hasErrors()) {
-				return "user/edit";
+				return view("edit");
 			}
 			
 			User user = userService.findById(form.getId());
@@ -114,10 +120,8 @@ public class UserController {
 			user.setRole(form.getRole());			
 			user.setUpdateDate(user.getNow());
 			userService.save(user);
-			
-			System.out.print(user);
-			
-			return "redirect:/index";
+						
+			return "redirect:/admin/index";
 		}
 		
 		// 社員削除処理
@@ -128,8 +132,8 @@ public class UserController {
 			User user = userService.findById(form.getId());			
 			user.setDeleteDate(user.getNow());			
 			userService.save(user);
-			System.out.print(user);
-			return "redirect:/index";
+			
+			return "redirect:/admin/index";
 		}
 		
 		// 社員削除撤回処理
@@ -138,8 +142,8 @@ public class UserController {
 			User user = userService.findById(form.getId());
 			user.setDeleteDate(null);
 			userService.save(user);
-			System.out.print(user);
-			return "redirect:/index";
+			
+			return "redirect:/admin/index";
 		}
 
 }

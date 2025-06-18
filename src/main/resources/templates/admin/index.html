@@ -28,7 +28,7 @@
 							<td th:text="${user.mail}"></td>
 							<td th:text="${user.deleteFlag()}"></td>
 							<td>
-								<a th:href="@{/edit/{id}(id=*{user.id})}" class="btn btn-primary">編集</a>
+								<a th:href="@{/admin/edit/{id}(id=*{user.id})}" class="btn btn-primary">編集</a>
 							</td>
 						</tr>
 					</tbody>
@@ -39,7 +39,7 @@
 				<p>ユーザー名: <span sec:authentication="name"></span></p>
 <p>ロール: <span sec:authentication="principal.authorities"></span></p>
 
-				<a th:href="@{/new}" class="btn btn-primary">社員登録</a>
+				<a th:href="@{/admin/new}" class="btn btn-primary">社員登録</a>
 			</th:block>
 		</div>
 	</body>
