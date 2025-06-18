@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +27,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	/* テンプレート名に"admin/"を付加して、ビューのパスを簡潔に指定する
 	 * @return "admin/"を付加したテンプレートパス　(例："admin/index")
@@ -70,7 +74,7 @@ public class UserController {
 			User user = new User();
 			user.setName(form.getName());
 			user.setMail(form.getMail());
-			user.setPassword(form.getPassword());			
+			user.setPassword(passwordEncoder.encode(form.getPassword()));			
 			user.setCreateDate(user.getNow());
 			user.setRole(form.getRole());
 			userService.save(user);
