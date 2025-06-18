@@ -30,6 +30,7 @@ public class SecurityConfig {
 					.loginPage("/login") // ログインページのURL
 					//.defaultSuccessUrl("/admin/index", true) // ログイン後の遷移先
 					.successHandler(customLoginSuccessHandler) // ログイン後の遷移先。ロールによって変化
+					.usernameParameter("mail") // usernameの代わりにmailを使用
 					.permitAll()
 				)
 			
