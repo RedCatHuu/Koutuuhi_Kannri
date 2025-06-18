@@ -32,7 +32,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
                 response.sendRedirect("/admin/index");
                 return;
             } else if (role.equals("ROLE_PUBLIC")) {
-                response.sendRedirect("/public/index");
+                response.sendRedirect("/index");
                 return;
             }
         }
