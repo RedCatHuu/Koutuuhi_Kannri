@@ -1,6 +1,8 @@
 package com.example.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,12 +23,20 @@ public class TrafficApiController {
     private TrafficService trafficService;
 
     @GetMapping("/traffic")
-    public List<Traffic> getTrafficByMonth(@RequestParam(required = false) Integer month, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public Map<String, Object> getTrafficByMonth(@RequestParam(required = false) Integer month, @AuthenticationPrincipal UserDetailsImpl userDetails) {
     	Long userId = userDetails.getUser().getId();
-        if (month == null) {
-            return trafficService.getAllTraffics(userId);
-        }
-        return trafficService.findByMonthAndId(month, userId); 
+    	List<Traffic> traffics = (month == null) ?
+    							 trafficService.getAllTraffics(userId) :
+								 trafficService.findByMonthAndId(month, userId);
+    	
+    	long total = trafficService.sumCost(traffics);
+    	
+    	Map<String, Object> response = new HashMap<>();
+    	response.put("traffics", traffics);
+    	response.put("totalCost", total);
+    	
+    	return response;
+    	
     }
 }
 

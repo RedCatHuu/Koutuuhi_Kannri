@@ -54,7 +54,9 @@
 <!--				合計金額表示フィールド-->
 				<div class="d-flex justify-content-end">
 					<p>合計：</p>
-					<p th:text="${totalCost}"></p>
+					<p id="totalCost"
+   					   th:text="${#numbers.formatDecimal(totalCost, 0, 'COMMA', 0, 'POINT')}">
+				    </p>
 				</div>
 				
 			</th:block>
