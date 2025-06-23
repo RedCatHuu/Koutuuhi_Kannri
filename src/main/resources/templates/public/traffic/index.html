@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>		
+		<title>Users</title>
+		<div th:replace="common/fragment :: commonHead"></div>
+	</head>
+	
+	<body>
+		<div th:replace="common/fragment :: commonHeader"></div>		
+
+		<div th:replace="common/framework :: frame('standard', ~{::#content})">
+			<th:block id="content">
+				
+<!--				月セレクトボックス-->
+				<div class="col-sm-6 col-md-4 col-lg-3 mb-3">				
+					<label for="month">月を選択：</label>
+					<select id="monthSelect" class="form-select">
+						<option value="">すべて</option>
+						<option th:each="month : ${months}"
+								th:value="${month.key}"
+								th:text="${month.value}">								
+						</option>
+					</select>
+				</div>
+				
+				<!--		交通費一覧表示-->
+				<table class="table">
+					<thead>
+						<tr>				
+							<th>日付</th>
+							<th>利用機関</th>
+							<th>利用区間</th>
+							<th>往復</th>
+							<th>料金</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody id="trafficTableBody">
+						<tr th:each="traffic : ${traffics}">
+							<td th:text="${traffic.dateofuse}"></td>				
+							<td th:text="${traffic.means}"></td>
+							<td th:text="${traffic.sector}"></td>
+							<td th:text="${traffic.road}"></td>
+							<td th:text="${traffic.cost}"></td>
+							<td th:text="${traffic.user.id}"></td>
+							<td th:text="${traffic.user.name}"></td>
+							<td>
+								<a th:href="@{/edit/{id}(id=*{traffic.trafficid})}" class="btn btn-primary">編集</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+<!--				合計金額表示フィールド-->
+				<div class="d-flex justify-content-end">
+					<p>合計：</p>
+					<p th:text="${totalCost}"></p>
+				</div>
+				
+			</th:block>
+		</div>
+	</body>
+	
+</html>

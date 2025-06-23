@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="common/fragment :: commonHead">
+	</head>
+	
+	<body>
+		<div th:replace="common/fragment :: commonHeader"></div>
+		
+<!--		common/framework.htmlのframeフラグメントを呼び出し、frameフラグメント内のcontent変数にid=contentを代入-->
+		<div th:replace="common/framework :: frame('narrow', ~{::#content})">
+			<th:block id="content">
+				
+				<form th:object="${form}" th:action="@{/new}" th:method="post">
+					
+					<div class="form-group mb-3">
+						<label for="dateofuse">利用日</label>
+						<input type="date" th:field="*{dateofuse}" placeholder="dateofuse" th:errorclass="border-danger" class="form-control mt-1">
+						<!-- エラー表示 -->
+						<div th:if="${#fields.hasErrors('dateofuse')}" th:errors="*{dateofuse}" class="text-danger"></div>
+					</div>
+					
+					<div class="form-group mb-3">
+						<label for="means">利用機関</label>
+						<input type="text" th:field="*{means}" placeholder="利用機関" th:errorclass="border-danger" class="form-control mt-1">
+						<!-- エラー表示 -->
+						<div th:if="${#fields.hasErrors('means')}" th:errors="*{means}" class="text-danger"></div>
+					</div>
+					
+					<div class="form-group mb-3">
+						<label for="sector">利用区間</label>
+						<input type="text" th:field="*{sector}" placeholder="利用区間" th:errorclass="border-danger" class="form-control mt-1">
+						<!-- エラー表示 -->
+						<div th:if="${#fields.hasErrors('sector')}" th:errors="*{sector}" class="text-danger"></div>
+					</div>
+					
+					<div class="mb-3">
+						<label for="road">権限</label>
+						<select th:field="*{road}" class="form-select">
+							<option th:value="'1'" th:text="'片道'"></option>
+							<option th:value="'2'" th:text="'往復'"></option>
+						</select>						
+					</div>
+					
+					<div class="mb-3">
+						<label for="cost">交通費</label>
+						<input type="text" th:field="*{cost}" placeholder="利用機関" th:errorclass="border-danger" class="form-control mt-1">
+						<!-- エラー表示 -->
+						<div th:if="${#fields.hasErrors('sector')}" th:errors="*{sector}" class="text-danger"></div>
+					</div>
+					
+					<input type="submit" value="登録" class="btn btn-primary">
+							
+				</form>
+				
+			</th:block>			
+		</div>
+		
+	</body>
+	
+</html>

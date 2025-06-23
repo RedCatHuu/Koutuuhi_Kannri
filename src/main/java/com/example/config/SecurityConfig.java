@@ -33,11 +33,20 @@ public class SecurityConfig {
 					.usernameParameter("mail") // usernameの代わりにmailを使用
 					.permitAll()
 				)
-			
+				
+				// h2コンソールへのアクセス用
+				.csrf(csrf -> csrf
+						.ignoringRequestMatchers("/h2-console/**") // H2 ConsoleでのCSRF対策を除外
+					)
+				.headers(headers -> headers
+						.frameOptions().sameOrigin() // H2 Console用にframeを許可
+					)
+				
+				
 				// ログアウト設定
 				.logout(logout -> logout
 		            .logoutUrl("/logout") // ログアウトURL
-		            .logoutSuccessUrl("/") // ログアウト後の遷移先
+		            .logoutSuccessUrl("/login") // ログアウト後の遷移先
 		            .invalidateHttpSession(true) // セッション破棄 デフォルトでtrueなので明示しなくてもいい
 		            .deleteCookies("JSESSIONID") // Cookie削除
 	            )
@@ -47,7 +56,8 @@ public class SecurityConfig {
 	//					.requestMatchers("/css/**").permitAll() // cssファイルは認証不要
 						.requestMatchers("/webjars/**").permitAll() //bootstrap許可
 						.requestMatchers("/").permitAll() // トップページは認証不要
-						.requestMatchers("/new/**").hasRole("ADMIN")  // アクセス制限
+						.requestMatchers("/h2-console/**").permitAll()
+						// .requestMatchers("/admin/**").hasRole("ADMIN")  // アクセス制限
 						.anyRequest().authenticated() // 他のURLはログイン後アクセス可能
 		);
 		

@@ -2,6 +2,8 @@ package com.example.entity;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +18,7 @@ import lombok.ToString;
 public class Traffic {
 	
 	@ManyToOne
+	@JsonIgnore // Jsonで再帰エラーを回避するため
 	@JoinColumn(name = "user_id")
 	@ToString.Exclude
 	private User user;

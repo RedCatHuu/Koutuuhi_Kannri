@@ -6,8 +6,9 @@ import com.example.entity.Traffic;
 
 
 public interface TrafficService {
-	List<Traffic> getAllTravelCosts();
+	List<Traffic> getAllTraffics(Long userid);
 	void save(Traffic traffic);
-	
+	public List<Traffic> findByMonthAndId(int month, Long userid);
+	public long sumCost(List<Traffic> traffics);
 
 }
